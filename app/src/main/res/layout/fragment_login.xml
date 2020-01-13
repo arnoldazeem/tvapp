@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@color/lightblack">
+
+
+
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:background="@color/lightblack"
+        android:id="@+id/login_layout"
+        android:layout_width="300dp"
+        android:layout_height="200dp">
+
+
+        <TextView
+            android:layout_alignParentTop="true"
+            android:text="Log in to your account"
+            android:gravity="center"
+            android:id="@+id/textlogin"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Email Label -->
+
+        <EditText
+            android:layout_below="@+id/textlogin"
+            android:focusable="true"
+            android:id="@+id/input_email"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email" />
+
+        <!-- Password Label -->
+        <EditText
+            android:focusable="true"
+            android:id="@+id/input_password"
+            android:layout_below="@+id/input_email"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"/>
+
+
+        <Button
+            android:focusable="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/input_password"
+            android:id="@+id/loginBtn"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/loginbutton_selector"
+            android:text="@string/login"
+            android:textColor="#ffffff" />
+
+
+        <TextView
+            android:layout_below="@+id/loginBtn"
+            android:text="Log in to your account"
+            android:gravity="center"
+            android:id="@+id/textreset"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

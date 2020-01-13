@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/black" >
+
+
+    <ImageView
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ifma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:background="@drawable/monitizebutton_selector"
+        android:focusable="true"
+        android:layout_toLeftOf="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monetize"/>
+
+    <Button
+        android:focusable="true"
+        android:background="@drawable/loginbutton_selector"
+        android:id="@+id/signup"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"/>
+
+
+    <TextView
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:layout_below="@+id/signup"
+        android:id="@+id/signuptext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Sign In"/>
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:layout_below="@+id/signuptext"
+        android:id="@+id/randomtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Every good Movie deserves to be seen"/>
+
+
+
+            <FrameLayout
+            android:layout_below="@+id/randomtext"
+            android:layout_margin="15dp"
+            android:id="@+id/frameContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+</RelativeLayout>
