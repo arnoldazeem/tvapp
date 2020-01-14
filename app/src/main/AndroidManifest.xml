@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Leanback">
         <activity
-            android:name=".Initial_Page"
+            android:name=".MainActivity"
             android:banner="@drawable/banner"
             android:icon="@drawable/app_icon_your_company"
             android:label="@string/app_name"

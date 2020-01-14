@@ -60,8 +60,10 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -105,7 +107,13 @@ public class MainFragment extends BrowseFragment {
         setupEventListeners();
     }
 
-
+    public static void longInfo(String str) {
+        if(str.length() > 4000) {
+            Log.i(TAG, str.substring(0, 4000));
+            longInfo(str.substring(4000));
+        } else
+            Log.i(TAG, str);
+    }
 
     //signup to take json format and return
     private void check() {
@@ -118,17 +126,60 @@ public class MainFragment extends BrowseFragment {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        System.out.println("response: " + response);
-
-
+                        //longInfo(one + two);
                         Gson gson = new Gson();
-                        Result result = gson.fromJson(response.toString(), Result.class);
+                        JSONObject jsnobject = null;
+                        JSONArray jsonArray = null;;
+                        JsonObject jobj = new Gson().fromJson(response.toString(), JsonObject.class);
 
-                        List<Objectss> objectsse = new ArrayList<Objectss>();
+                        String results = jobj.get("result").toString();
 
-                        objectsse = result.getObjects();
+                        try {
+                             jsnobject = new JSONObject(results);
+                             jsonArray = jsnobject.getJSONArray("objects");
 
-                        Log.e("Volly Error", "Volly Error" + result.getObjects());
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        String one;
+                        String two;
+                        ArrayList personNames = new ArrayList<String>();
+                        ArrayList emailIds = new ArrayList<String>();
+                        ArrayList mobileNumbers = new ArrayList<String>();
+
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject row = null;
+                            JSONObject thum = null;
+
+                            try {
+
+                                row = jsonArray.getJSONObject(i);
+                                JSONObject attrs = row.getJSONObject("attrs");
+                                String showId = row.getString("showId");
+
+
+                                String title = attrs.getString("title");
+                                String description = attrs.getString("description");
+                                String ageLimit = attrs.getString("ageLimit");
+                                String type = attrs.getString("type");
+
+                                JSONArray thumbnails = attrs.getJSONArray("thumbnails");
+                                for (int a = 0; a < thumbnails.length(); a++) {
+                                    thum = thumbnails.getJSONObject(a);
+                                    String url =  thum.getString("url");
+                                }
+
+                               //Log.e("Volley", url);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
                     }
                 }, new Response.ErrorListener() {
 

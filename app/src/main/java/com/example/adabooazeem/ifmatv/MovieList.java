@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class MovieList {
+
     public static final String MOVIE_CATEGORY[] = {
             "Category Zero",
             "Category One",
@@ -39,6 +40,7 @@ public final class MovieList {
 
     public static List<Movie> setupMovies() {
         list = new ArrayList<>();
+
         String title[] = {
                 "Zeitgeist 2010_ Year in Review",
                 "Google Demo Slam_ 20ft Search",
@@ -53,6 +55,7 @@ public final class MovieList {
                 + "amet mi accumsan mollis sed et magna. Vivamus sed aliquam risus. Nulla eget dolor in elit "
                 + "facilisis mattis. Ut aliquet luctus lacus. Phasellus nec commodo erat. Praesent tempus id "
                 + "lectus ac scelerisque. Maecenas pretium cursus lectus id volutpat.";
+
         String studio[] = {
                 "Studio Zero", "Studio One", "Studio Two", "Studio Three", "Studio Four"
         };
