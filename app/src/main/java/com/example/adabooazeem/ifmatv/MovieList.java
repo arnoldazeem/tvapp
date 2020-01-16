@@ -14,10 +14,22 @@
 
 package com.example.adabooazeem.ifmatv;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public final class MovieList {
+
+
+    protected Context context;
+
+    public MovieList(Context context){
+        this.context = context.getApplicationContext();
+
+    }
+
+
 
     public static final String MOVIE_CATEGORY[] = {
             "Category Zero",
@@ -27,6 +39,7 @@ public final class MovieList {
             "Category Four",
             "Category Five",
     };
+
 
     private static List<Movie> list;
     private static long count = 0;
@@ -39,6 +52,7 @@ public final class MovieList {
     }
 
     public static List<Movie> setupMovies() {
+
         list = new ArrayList<>();
 
         String title[] = {
@@ -48,6 +62,8 @@ public final class MovieList {
                 "Introducing Google Fiber to the Pole",
                 "Introducing Google Nose"
         };
+
+
 
         String description = "Fusce id nisi turpis. Praesent viverra bibendum semper. "
                 + "Donec tristique, orci sed semper lacinia, quam erat rhoncus massa, non congue tellus est "
@@ -73,6 +89,9 @@ public final class MovieList {
                 "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole/bg.jpg",
                 "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/bg.jpg",
         };
+
+
+
         String cardImageUrl[] = {
                 "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Zeitgeist/Zeitgeist%202010_%20Year%20in%20Review/card.jpg",
                 "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/Demo%20Slam/Google%20Demo%20Slam_%2020ft%20Search/card.jpg",
@@ -80,6 +99,9 @@ public final class MovieList {
                 "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Fiber%20to%20the%20Pole/card.jpg",
                 "http://commondatastorage.googleapis.com/android-tv/Sample%20videos/April%20Fool's%202013/Introducing%20Google%20Nose/card.jpg"
         };
+
+
+
 
         for (int index = 0; index < title.length; ++index) {
             list.add(
@@ -101,15 +123,19 @@ public final class MovieList {
             String studio,
             String videoUrl,
             String cardImageUrl,
-            String backgroundImageUrl) {
+
+            String backgroundImageUrl)
+    {
         Movie movie = new Movie();
-        movie.setId(count++);
+        //movie.setId(count++);
         movie.setTitle(title);
         movie.setDescription(description);
-        movie.setStudio(studio);
+        //movie.setStudio(studio);
         movie.setCardImageUrl(cardImageUrl);
         movie.setBackgroundImageUrl(backgroundImageUrl);
         movie.setVideoUrl(videoUrl);
+
+
         return movie;
     }
 }

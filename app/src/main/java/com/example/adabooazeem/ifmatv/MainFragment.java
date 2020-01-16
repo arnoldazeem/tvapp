@@ -89,6 +89,13 @@ public class MainFragment extends BrowseFragment {
     private Timer mBackgroundTimer;
     private String mBackgroundUri;
     private BackgroundManager mBackgroundManager;
+    ArrayList<String> title;
+    ArrayList<String> cardImageUrl;
+    ArrayList<String> Id;
+    //arraylist
+    private static List<Movie> list;
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -97,12 +104,11 @@ public class MainFragment extends BrowseFragment {
 
         prepareBackgroundManager();
 
-        setupUIElements();
-
-        loadRows();
-
-
         check();
+
+        //loadRows();
+
+        setupUIElements();
 
         setupEventListeners();
     }
@@ -115,18 +121,21 @@ public class MainFragment extends BrowseFragment {
             Log.i(TAG, str);
     }
 
-    //signup to take json format and return
-    private void check() {
 
-       // Map<String, String> postParam= new HashMap<String, String>();
+    //signup to take json format and return
+    public void check() {
+
+
+        // Map<String, String> postParam= new HashMap<String, String>();
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 Utils.GET_SHOWS_URL, new JSONObject(),
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-
                         //longInfo(one + two);
+
+
                         Gson gson = new Gson();
                         JSONObject jsnobject = null;
                         JSONArray jsonArray = null;;
@@ -143,43 +152,66 @@ public class MainFragment extends BrowseFragment {
                             e.printStackTrace();
                         }
 
-                        String one;
-                        String two;
-                        ArrayList personNames = new ArrayList<String>();
-                        ArrayList emailIds = new ArrayList<String>();
-                        ArrayList mobileNumbers = new ArrayList<String>();
+
+                        String url = null;
+
+                        title = new ArrayList<String>();
+                        cardImageUrl = new ArrayList<String>();
+                        Id = new ArrayList<String>();
+
 
 
                         for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject row = null;
                             JSONObject thum = null;
+                            JSONObject Movies = new JSONObject();
 
                             try {
 
                                 row = jsonArray.getJSONObject(i);
                                 JSONObject attrs = row.getJSONObject("attrs");
+
+
                                 String showId = row.getString("showId");
-
-
-                                String title = attrs.getString("title");
-                                String description = attrs.getString("description");
+                                String titlename = attrs.getString("title");
+                                String descrip = attrs.getString("description");
                                 String ageLimit = attrs.getString("ageLimit");
                                 String type = attrs.getString("type");
+
+                                //title.add(titlename);
+                                //Id.add(showId);
+                                //description.add(descrip);
+
+                                Id.add(showId);
+                                title.add(titlename);
+
 
                                 JSONArray thumbnails = attrs.getJSONArray("thumbnails");
                                 for (int a = 0; a < thumbnails.length(); a++) {
                                     thum = thumbnails.getJSONObject(a);
-                                    String url =  thum.getString("url");
+                                    url =  thum.getString("url");
+
                                 }
 
-                               //Log.e("Volley", url);
+                               String link = "https://api.ifmacinema.com:443";
+
+                                cardImageUrl.add(link+url);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
                         }
+
+                       // Log.i("VOLLEY", cardImageUrl.toString());
+                        //final place where json array is setup
+                      // Log.i("VOLLEY", Movies.toString)
+
+                        List<Movie> list = setupMoviess(Id,title,cardImageUrl);
+
+                        loadRows(list);
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -250,8 +282,41 @@ public class MainFragment extends BrowseFragment {
         // Adding request to request queue
         queue.add(jsonObjReq);
         // Cancelling request
+
     }
 
+
+
+    //Movielist
+     List<Movie> setupMoviess(ArrayList<String> id, ArrayList<String> tile, ArrayList<String> cdImageUrl) {
+
+         list = new ArrayList<>();
+
+        for (int index = 0; index < tile.size(); ++index) {
+
+
+            list.add(
+                    buildMovieInfos(
+                            id.get(index),
+                            tile.get(index),
+                            cdImageUrl.get(index)));
+        }
+
+        return list;
+    }
+
+
+    private static Movie buildMovieInfos(
+            String Id,
+            String title,
+            String cardImageUrl)
+    {
+        Movie movie = new Movie();
+        movie.setId(Id);
+        movie.setTitle(title);
+        movie.setCardImageUrl(cardImageUrl);
+        return movie;
+    }
 
 
 
@@ -267,8 +332,7 @@ public class MainFragment extends BrowseFragment {
         }
     }
 
-    private void loadRows() {
-        List<Movie> list = MovieList.setupMovies();
+    private void loadRows(List<Movie> list) {
 
         ArrayObjectAdapter rowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter cardPresenter = new CardPresenter();
@@ -279,9 +343,12 @@ public class MainFragment extends BrowseFragment {
                 Collections.shuffle(list);
             }
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
+
             for (int j = 0; j < NUM_COLS; j++) {
                 listRowAdapter.add(list.get(j % 5));
             }
+
+
             HeaderItem header = new HeaderItem(i, MovieList.MOVIE_CATEGORY[i]);
             rowsAdapter.add(new ListRow(header, listRowAdapter));
         }

@@ -21,22 +21,22 @@ import java.io.Serializable;
  */
 public class Movie implements Serializable {
     static final long serialVersionUID = 727566175075960653L;
-    private long id;
+    private String id;
     private String title;
     private String description;
     private String bgImageUrl;
     private String cardImageUrl;
     private String videoUrl;
-    private String studio;
+    //private String studio;
 
     public Movie() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -56,13 +56,6 @@ public class Movie implements Serializable {
         this.description = description;
     }
 
-    public String getStudio() {
-        return studio;
-    }
-
-    public void setStudio(String studio) {
-        this.studio = studio;
-    }
 
     public String getVideoUrl() {
         return videoUrl;
